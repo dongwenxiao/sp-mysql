@@ -1,7 +1,22 @@
 {
-  "dependencies": {
-    "mysql": "^2.13.0",
-    "mysql2": "^1.2.0",
-    "sequelize": "^3.30.2"
-  }
+    "name": "sp-mysql",
+    "version": "1.0.3",
+    "description": "super-project moudle for mysql operate.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "mysql"
+    ],
+    "author": "cs_victor@126.com",
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/dongwenxiao/sp-mysql/issues"
+    },
+    "homepage": "https://github.com/dongwenxiao/sp-mysql#readme",
+    "dependencies": {
+        "mysql": "^2.13.0",
+        "mysql2": "^1.2.0"
+    }
 }
