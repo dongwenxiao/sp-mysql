@@ -1,5 +1,10 @@
 const mysql = require('mysql2/promise')
 
+const debug = require('debug')
+const log = debug('MySQL:log')
+const error = debug('MySQL:error')
+const info = debug('MySQL:info')
+
 export default class spMysql {
 
     constructor(opt) {
@@ -12,11 +17,9 @@ export default class spMysql {
             database: 'no-set-db-name',
             charset:'UTF8_GENERAL_CI'
         }, opt)
-        this.instance = this.createPool(opt)
+        this.instance = this.createPool()
         this.testConnect()
-        this._openLog = false
     }
-
 
     createPool() {
         return mysql.createPool(this.opt)
@@ -25,27 +28,22 @@ export default class spMysql {
     testConnect() {
         this.instance.query('SELECT 1 + 1 AS Test')
             .then(() => {
-                console.info(`MySQL [${this.opt.database}] connected √`)
+                info(`DB [%o] connected √`, this.opt.database)
             })
             .catch((err) => {
-                console.error('MySQL connect failed X')
-                console.error(err)
+                info(`DB [%o] connect failed X`, this.opt.database)
+                error(err)
             })
-    }
-
-    openLog() {
-        this._openLog = true
-    }
-
-    closeLog() {
-        this._openLog = false
     }
 
     query(sql, params) {
         if (this._openLog) {
-            console.log(`SQL: ${sql}`)
-            if (params) console.log(`params: ${JSON.stringify(params)}`)
+            log(`SQL: ${sql}`)
+            if (params) log('params: %j', params)
         }
+
+        log('SQL: %o', sql)
+        if (params) log('params: %j', params)
 
         return this.instance.query(sql, params)
     }

@@ -6,6 +6,7 @@ super-project moudle for mysql operate.
 
 ## Init
 
+Config More: https://github.com/mysqljs/mysql#connection-options
 ```js
 import spMysql from 'sp-mysql'
 
@@ -36,12 +37,17 @@ let [result] = await mysql.query(sql)
 ```
 
 
-## Log
+## Debug
 
-```js
-mysql.openLog() // open log
+Use [debug](https://www.npmjs.com/package/debug) for log.
 
-mysql.closeLog() // close log
+设置环境变量
+```shell
+set DEBUG=*             # 全部信息
+set DEBUG=MySQL*        # MySQL相关信息，包括（info\log\errro）
+set DEBUG=MySQL:info    # info信息
+set DEBUG=MySQL:log     # log信息，执行sql
+set DEBUG=MySQL:error   # error错误信息
 ```
 
 ## Test Connection
@@ -49,6 +55,6 @@ mysql.closeLog() // close log
 ```js
 mysql.testConnect()
 
-// console => MySQL [db_name] connected √
-//         => MySQL connect failed X
+// console => MySQL:info DB ['db_name'] connected √
+//         => MySQL:info DB ['db_name'] connect failed X
 ```
